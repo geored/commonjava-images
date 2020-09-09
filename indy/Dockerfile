@@ -18,7 +18,7 @@ ADD $data_tarball_url /usr/share/indy/indy-launcher-data.tar.gz
 
 RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     mkdir -p /opt/indy/var/lib/indy/ui /opt/indy/var/log/indy /var/log/indy /etc/indy && \
-    mkdir -p /opt/indy/var/lib/indy/data/promote && \
+    mkdir -p /opt/indy/var/lib/indy/data/promote /home/indy && \
     tar -xf /opt/indy-launcher-skinny.tar.gz -C /opt && \
     tar -xf /usr/share/indy/indy-launcher-data.tar.gz -C /usr/share/indy && \
     rm -f /opt/indy-launcher-skinny.tar.gz /usr/share/indy/indy-launcher-data.tar.gz && \
@@ -27,7 +27,7 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     chmod +x /usr/local/bin/* && chmod -R 777 /etc/indy && chmod -R 777 /var/log/indy && \
     chmod -R 777 /usr/share/indy
 
-# https://access.redhat.com/articles/4859371#Thanks
+# https://access.redhat.com/articles/4859371
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
@@ -54,7 +54,9 @@ RUN chgrp -R 0 /opt && \
     chgrp -R 0 /var/log/indy && \
     chmod -R g=u /var/log/indy && \
     chgrp -R 0 /usr/share/indy && \
-    chmod -R g=u /usr/share/indy
+    chmod -R g=u /usr/share/indy && \
+    chgrp -R 0 /home/indy && \
+    chmod -R g=u /home/indy
 
 USER 1001
 
