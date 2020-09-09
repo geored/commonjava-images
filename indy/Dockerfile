@@ -7,6 +7,8 @@ EXPOSE 8080 8081 8000
 USER root
 
 ADD start-indy.py /usr/local/bin/start-indy.py
+ADD setup-user.sh /usr/local/bin/setup-user.sh
+ADD passwd.template /opt/passwd.template
 
 ARG tarball_url
 ARG data_tarball_url
@@ -25,15 +27,17 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     chmod +x /usr/local/bin/* && chmod -R 777 /etc/indy && chmod -R 777 /var/log/indy && \
     chmod -R 777 /usr/share/indy
 
-ENTRYPOINT ["/usr/local/bin/dumb-init", "/usr/local/bin/start-indy.py"]
+# https://access.redhat.com/articles/4859371#Thanks
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
 RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless &&  \
     wget -P /tmp http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7 && \
     rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
     yum update -y --security && \
-    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 strace dstat uperf && \
-    yum clean all && rm -rf /var/cache/yum
+    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 strace dstat uperf nss_wrapper gettext && \
+    yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7 /tmp/indy
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
 
@@ -50,10 +54,10 @@ RUN chgrp -R 0 /opt && \
     chgrp -R 0 /var/log/indy && \
     chmod -R g=u /var/log/indy && \
     chgrp -R 0 /usr/share/indy && \
-    chmod -R g=u /usr/share/indy && \
-    useradd indy --uid 1001 --gid 0
+    chmod -R g=u /usr/share/indy
 
 USER 1001
 
 ENV LOGNAME=indy
 ENV USER=indy
+ENV HOME=/home/indy
