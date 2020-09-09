@@ -32,7 +32,7 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless &&  \
     rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
     yum update -y --security && \
-    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 && \
+    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 strace dstat uperf && \
     yum clean all && rm -rf /var/cache/yum
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
@@ -54,3 +54,6 @@ RUN chgrp -R 0 /opt && \
     useradd indy --uid 1001 --gid 0
 
 USER 1001
+
+ENV LOGNAME=indy
+ENV USER=indy
