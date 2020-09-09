@@ -13,5 +13,5 @@ ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
 nobody:x:99:99:Nobody:/:/sbin/nologin
 systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin
 dbus:x:81:81:System message bus:/:/sbin/nologin
-indy:x:${USER_ID}:${GROUP_ID}:Indy user:${HOME}:/bin/nologin
+indy:x:${USER_ID}:${GROUP_ID}:Indy Application User:${HOME}:/bin/bash
 
