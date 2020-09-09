@@ -36,11 +36,12 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless &&  \
     rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
     wget -P /tmp https://download-ib01.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7 && \
-    rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
+    rpm --import /tmp/RPM-GPG-KEY-EPEL-7 && \
     yum-config-manager --add-repo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
     yum update -y --security && \
+    yum install -y epel-release-7*noarch && \ 
     yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 dstat nss_wrapper gettext && \
-    yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7 /tmp/indy
+    yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7 
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
 
