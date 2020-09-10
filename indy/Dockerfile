@@ -36,18 +36,20 @@ ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
 RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
-    wget -P /tmp https://download-ib01.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7 && \
-    rpm --import /tmp/RPM-GPG-KEY-EPEL-7 && \
-    yum-config-manager --add-repo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
-    yum install -y epel-release-7*noarch && \
-    yum install -y nss_wrapper && \
-    yum-config-manager --disablerepo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
     wget -P /tmp http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7 && \
     rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
     yum update -y --security && \
-    yum install -y epel-release-7*noarch && \ 
-    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 dstat nss_wrapper gettext && \
+    yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 dstat gettext && \
+#    wget -P /tmp https://download-ib01.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7 && \
+#    rpm --import /tmp/RPM-GPG-KEY-EPEL-7 && \
+#    yum-config-manager --add-repo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
+#    yum install -y epel-release-7*noarch && \
+#    yum install -y nss_wrapper && \
+#    yum clean all && \
+#    yum-config-manager --disablerepo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
+    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum install -y nss_wrapper && \
     yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
