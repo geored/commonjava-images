@@ -41,7 +41,7 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless &&  \
     yum update -y --security && \
     yum install -y epel-release-7*noarch && \ 
     yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 dstat nss_wrapper gettext && \
-    yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7 
+    yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
 
