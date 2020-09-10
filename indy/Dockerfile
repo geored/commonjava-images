@@ -41,7 +41,7 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
     yum-config-manager --add-repo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
     yum install -y epel-release-7*noarch && \
     yum install -y nss_wrapper && \
-    yum-config-manager --set-disabled https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
+    yum-config-manager --disablerepo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
     wget -P /tmp http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7 && \
     rpm --import /tmp/RPM-GPG-KEY-CentOS-7 && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
