@@ -24,7 +24,7 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     mkdir -p /opt/indy/var/lib/indy/data/promote /home/indy && \
     tar -xf /opt/indy-launcher-skinny.tar.gz -C /opt && \
     tar -xf /usr/share/indy/indy-launcher-data.tar.gz -C /usr/share/indy && \
-    rm -f /opt/indy-launcher-skinny.tar.gz /usr/share/indy/indy-launcher-data.tar.gz /tmp/hsperfdata_root && \
+    rm -Rf /opt/indy-launcher-skinny.tar.gz /usr/share/indy/indy-launcher-data.tar.gz /tmp/hsperfdata_root && \
     cp -Rf /usr/share/indy/data/promote/rules /opt/indy/var/lib/indy/data/promote/ && \
     cp -Rf /opt/indy/var/lib/indy/ui /usr/share/indy/ && \
     cp /root/.profile /home/indy && \
@@ -35,7 +35,7 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
-RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless &&  \
+RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
     wget -P /tmp https://download-ib01.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7 && \
     rpm --import /tmp/RPM-GPG-KEY-EPEL-7 && \
     yum-config-manager --add-repo https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/ && \
