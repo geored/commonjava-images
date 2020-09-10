@@ -31,9 +31,10 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     chmod +x /usr/local/bin/* && chmod -R 777 /etc/indy && chmod -R 777 /var/log/indy && \
     chmod -R 777 /usr/share/indy
 
-# https://access.redhat.com/articles/4859371
-ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
-CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
+# Note: Openshift and dynamic user id. https://access.redhat.com/articles/4859371
+ENTRYPOINT ["/usr/local/bin/dumb-init", "/usr/local/bin/start-indy.py"]
+#ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+#CMD ["bash", "-c", "/usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
 RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
     wget -P /tmp http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7 && \
