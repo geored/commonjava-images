@@ -16,6 +16,8 @@ ARG data_tarball_url
 ADD $tarball_url /opt/indy-launcher-skinny.tar.gz
 ADD $data_tarball_url /usr/share/indy/indy-launcher-data.tar.gz
 
+ADD .profile /root/
+
 RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     mkdir -p /opt/indy/var/lib/indy/ui /opt/indy/var/log/indy /var/log/indy /etc/indy && \
     mkdir -p /opt/indy/var/lib/indy/data/promote /home/indy && \
@@ -24,6 +26,7 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     rm -f /opt/indy-launcher-skinny.tar.gz /usr/share/indy/indy-launcher-data.tar.gz && \
     cp -Rf /usr/share/indy/data/promote/rules /opt/indy/var/lib/indy/data/promote/ && \
     cp -Rf /opt/indy/var/lib/indy/ui /usr/share/indy/ && \
+    cp /root/.profile /home/indy/ && \
     chmod +x /usr/local/bin/* && chmod -R 777 /etc/indy && chmod -R 777 /var/log/indy && \
     chmod -R 777 /usr/share/indy
 
@@ -68,3 +71,4 @@ USER 1001
 ENV LOGNAME=indy
 ENV USER=indy
 ENV HOME=/home/indy
+ENV JAVA_OPTS="-Duser.home=${HOME}"
