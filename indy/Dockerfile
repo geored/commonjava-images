@@ -33,7 +33,6 @@ RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
 
 # Openshift and dynamic user id. https://access.redhat.com/articles/4859371 integration
 # enabled by configuring Bourne Shell user profile to call setup-user script.
-#ENTRYPOINT ["/usr/local/bin/dumb-init", "/usr/local/bin/start-indy.py"]
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD ["bash", "-c", "source /usr/local/bin/setup-user.sh && /usr/local/bin/start-indy.py"]
 
