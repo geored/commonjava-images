@@ -41,7 +41,7 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
     yum-config-manager --add-repo http://mirror.centos.org/centos/7/os/x86_64/ && \
     yum update -y --security && \
     yum install -y java-11-openjdk-devel.x86_64 java-11-openjdk-headless.x86_64 dstat gettext && \
-    yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum install -y nss_wrapper && \
     yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7
 
