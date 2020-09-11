@@ -18,7 +18,6 @@ ADD $tarball_url /opt/indy-launcher-skinny.tar.gz
 ADD $data_tarball_url /usr/share/indy/indy-launcher-data.tar.gz
 
 ADD .profile /root/.profile
-ADD .bashrc /home/indy/.bashrc
 
 RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     mkdir -p /opt/indy/var/lib/indy/ui /opt/indy/var/log/indy /var/log/indy /etc/indy && \
@@ -48,6 +47,7 @@ RUN yum remove -y java-1.8.0-openjdk java-1.8.0-openjdk-headless && \
     yum clean all && rm -rf /var/cache/yum /tmp/yum.log /tmp/RPM-GPG-KEY-CentOS-7
 
 ADD lowOverhead.jfc /usr/share/indy/flightrecorder.jfc
+ADD .bash_profile /home/indy/.bash_profile
 
 # NCL-4814: set umask to 002 so that group permission is 'rwx'
 # It works because we start with bash -l (login shell) start-indy.py which then uses Bourne shell to
