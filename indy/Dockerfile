@@ -17,8 +17,8 @@ ARG data_tarball_url
 ADD $tarball_url /opt/indy-launcher-skinny.tar.gz
 ADD $data_tarball_url /usr/share/indy/indy-launcher-data.tar.gz
 
-ADD .profile /root
-ADD .bashrc /home/indy
+ADD .profile /root/.profile
+ADD .bashrc /home/indy/.bashrc
 
 RUN mkdir -p /usr/share/indy /usr/share/indy/data/promote/rules && \
     mkdir -p /opt/indy/var/lib/indy/ui /opt/indy/var/log/indy /var/log/indy /etc/indy && \
